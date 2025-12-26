@@ -1,1 +1,18 @@
-apiVersion: argoproj.io/v1alpha1 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-app-gitops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/DevOps-Projects.git'
+    targetRevision: HEAD
+    path: L-9-Helm-GitOps-ArgoCD/helm-chart
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
